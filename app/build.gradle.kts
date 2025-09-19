@@ -5,6 +5,9 @@ plugins {
     alias(libs.plugins.google.ksp)
     alias(libs.plugins.dagger.hilt)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.google.gms.google.services)
+    // Add the Crashlytics Gradle plugin
+    id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -67,6 +70,7 @@ tasks.configureEach {
     }
 }
 dependencies {
+//    implementation(libs.firebase.database)
     // --- Modules ---
     useModule(":libraries:framework")
     useModule(":libraries:jetframework")
@@ -75,7 +79,8 @@ dependencies {
 
     // --- Navigation ---
     navigation()
-
+    //firebase
+    firebase()
 
     // --- Accompanist ---
     accompanist()

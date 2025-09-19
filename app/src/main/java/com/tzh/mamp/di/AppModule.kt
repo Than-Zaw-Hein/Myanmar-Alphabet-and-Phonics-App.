@@ -1,6 +1,10 @@
 package com.tzh.mamp.di
 
 import android.content.Context
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.firestoreSettings
+import com.google.firebase.firestore.ktx.memoryCacheSettings
+import com.google.firebase.firestore.ktx.persistentCacheSettings
 import com.tzh.framework.base.app.AppInitializer
 import com.tzh.framework.base.app.AppInitializerImpl
 import com.tzh.framework.base.app.FirebaseInitializer
@@ -19,7 +23,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class AppModule {
+object AppModule {
     @Provides
     @Singleton
     fun provideApplication(): MyApplication {
@@ -31,6 +35,7 @@ class AppModule {
     fun provideNetworkConfig(): NetworkConfig {
         return AppNetworkConfig()
     }
+
     @Singleton
     @Provides
     fun providesAppConfiguration(@ApplicationContext context: Context): AppConfiguration {
@@ -65,5 +70,19 @@ class AppModule {
             firebaseInitializer
         )
     }
+
+
+    @Provides
+    @Singleton
+    fun provideFirebaseFireStore(): FirebaseFirestore = FirebaseFirestore.getInstance().apply {
+        val settings = firestoreSettings {
+            // Use memory cache
+            setLocalCacheSettings(memoryCacheSettings {})
+            // Use persistent disk cache (default)
+            setLocalCacheSettings(persistentCacheSettings {})
+        }
+        firestoreSettings = settings
+    }
+
 
 }

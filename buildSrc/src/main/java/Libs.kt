@@ -114,10 +114,11 @@ object Libs {
         const val analytics = "com.google.firebase:firebase-analytics-ktx"
         const val crashlytics = "com.google.firebase:firebase-crashlytics-ktx"
         const val push = "com.google.firebase:firebase-messaging-ktx"
+        const val firestore = "com.google.firebase:firebase-firestore-ktx"
         const val config = "com.google.firebase:firebase-config"
         const val core = "com.google.firebase:firebase-core:21.1.1"
         const val messaging = "com.google.firebase:firebase-messaging"
-        const val database = "com.google.firebase:firebase-database"
+        const val database = "com.google.firebase:firebase-database:22.0.0"
     }
 
     object Hilt {

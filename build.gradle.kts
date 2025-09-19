@@ -8,6 +8,9 @@ plugins {
 
     alias(libs.plugins.jetbrains.kotlin.compose) apply false
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.google.gms.google.services) apply false
+    // Add the dependency for the Crashlytics Gradle plugin
+    id("com.google.firebase.crashlytics") version "3.0.6" apply false
 //
 //    id("com.android.dynamic-feature") version "8.2.2" apply false
 //    alias(libs.plugins.google.gms.google.services) apply false

@@ -34,6 +34,7 @@ fun DependencyHandler.supportLib() {
 // Compose
 // -------------------------------
 fun DependencyHandler.compose() {
+
     implementation(platform(Libs.Compose.bom))
     implementation(Libs.Compose.ui)
     implementation(Libs.Compose.viewbinding)
@@ -129,6 +130,7 @@ fun DependencyHandler.storage() {
 fun DependencyHandler.firebase() {
     addPlatform(Libs.Firebase.bom)
     implementation(Libs.Firebase.base)
+    implementation(Libs.Firebase.firestore)
     implementation(Libs.Firebase.analytics)
     implementation(Libs.Firebase.crashlytics)
     implementation(Libs.Firebase.push)

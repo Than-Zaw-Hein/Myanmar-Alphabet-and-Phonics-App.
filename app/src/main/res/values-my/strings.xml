@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MAPA</string>
+
+
+
+    <string name="consonant_letters">အသံအမှတ်များ</string>
+    <string name="vowel_letters">အသံသတ်များ</string>
+    <string name="tracing">ရေးသားခြင်း</string>
+    <string name="quiz">မေးခွန်းများ</string>
+    <string name="swipe_to_learn_consonant">အသံအမှတ်များကို သင်ယူရန် ဘေးသို့ပွတ်ဆွဲပါ</string>
+    <string name="swipe_to_learn_vowel">အသံသတ်များကို သင်ယူရန် ဘေးသို့ပွတ်ဆွဲပါ</string>
+    <string name="play_consonant_letters">အသံအမှတ်များကို ဖွင့်ရန်</string>
+    <string name="settings">ဆက်တင်များ</string>
+    <string name="myanmar_alphabet_phonics">မြန်မာအက္ခရာနှင့် အသံသွင်း</string>
+</resources>

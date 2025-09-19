@@ -7,7 +7,7 @@ import com.tzh.framework.pref.getPrefs
 import com.tzh.mamp.R
 import kotlinx.coroutines.flow.*
 
-class AppThemeProvider constructor(private val context: Context) : ThemeProvider {
+class AppThemeProvider (private val context: Context) : ThemeProvider {
     private val sharedPreferences = context.getPrefs()
 
     private val defaultThemeValue = context.getString(R.string.pref_theme_default_value)

@@ -19,9 +19,7 @@ object MyPlayer {
     fun providePlayer(application: Context): ExoPlayer {
         val trackSelector = DefaultTrackSelector(application)
         val loadControl = DefaultLoadControl()
-
         val renderersFactory = DefaultRenderersFactory(application).setEnableDecoderFallback(true)
-
         // Specify the video renderer index (0 is assumed for video)
         val videoRendererIndex = 0
 
@@ -40,11 +38,11 @@ object MyPlayer {
             .setTrackSelector(trackSelector)
             .setLoadControl(loadControl)
             .setRenderersFactory(renderersFactory)
+            .setSeekBackIncrementMs(10000)     // 10 seconds
+            .setSeekForwardIncrementMs(10000)  // 10 seconds
             .build().apply {
                 setHandleAudioBecomingNoisy(true)
-                playWhenReady = true
+                playWhenReady = false
             }
     }
-
-
 }
