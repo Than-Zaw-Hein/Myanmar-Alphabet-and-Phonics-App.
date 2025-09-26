@@ -34,7 +34,10 @@ object Libs {
         const val lottie = "com.airbnb.android:lottie-compose:${Versions.lottie}"
         const val paging = "androidx.paging:paging-compose:${Versions.pagingCompose}"
         const val adaptive = "androidx.compose.material3.adaptive:adaptive:1.1.0"
+
         const val coil = "io.coil-kt:coil-compose:${Versions.coil}"
+
+        const val coil_gif = "io.coil-kt:coil-gif:2.1.0"
         const val googleFonts = "androidx.compose.ui:ui-text-google-fonts:${Versions.googleFonts}"
         const val manifest = "androidx.compose.ui:ui-test-manifest"
 
@@ -110,15 +113,19 @@ object Libs {
 
     object Firebase {
         const val bom = "com.google.firebase:firebase-bom:${Versions.firebaseBom}"
-        const val base = "com.google.firebase:firebase-common"
+
+        // Only use KTX versions
+        const val playServicesAds =
+            "com.google.android.gms:play-services-ads:${Versions.playServicesAds}"
+
+        const val adsMobileSdk =
+            "com.google.android.libraries.ads.mobile.sdk:ads-mobile-sdk:${Versions.adsMobileSdk}"
         const val analytics = "com.google.firebase:firebase-analytics-ktx"
         const val crashlytics = "com.google.firebase:firebase-crashlytics-ktx"
-        const val push = "com.google.firebase:firebase-messaging-ktx"
+        const val messaging = "com.google.firebase:firebase-messaging-ktx"
         const val firestore = "com.google.firebase:firebase-firestore-ktx"
-        const val config = "com.google.firebase:firebase-config"
-        const val core = "com.google.firebase:firebase-core:21.1.1"
-        const val messaging = "com.google.firebase:firebase-messaging"
-        const val database = "com.google.firebase:firebase-database:22.0.0"
+        const val config = "com.google.firebase:firebase-config-ktx"
+        const val database = "com.google.firebase:firebase-database-ktx"
     }
 
     object Hilt {

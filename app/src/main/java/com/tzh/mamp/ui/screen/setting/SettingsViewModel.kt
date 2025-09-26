@@ -15,6 +15,7 @@ class SettingsViewModel @Inject constructor(
 ) : ViewModel() {
 
     val themeFlow: Flow<ThemeProvider.Theme> = themeProvider.observeTheme()
+    val languageFlow: Flow<String> =languageProvider.observeLanguageCode()
 
     fun setTheme(theme: ThemeProvider.Theme) {
         themeProvider.theme = theme
@@ -22,9 +23,10 @@ class SettingsViewModel @Inject constructor(
 
     fun setLanguage(code: String, context: Context) {
         languageProvider.saveLanguageCode(code)
-        languageProvider.setLocale(code, context)
+        languageProvider.setLocale(code,context)
     }
-
+    fun setLocale(code: String) {
+    }
     fun getCurrentLanguage(): String {
         return languageProvider.getLanguageCode()
     }

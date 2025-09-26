@@ -8,12 +8,30 @@
 
     <string name="consonant_letters">Consonant Letters</string>
     <string name="vowel_letters">Vowel Letters</string>
-    <string name="tracing">Tracing</string>
     <string name="quiz">Quiz</string>
+    <string name="feedback">FeedBack</string>
     <string name="swipe_to_learn_consonant">Swipe to Learn Consonant</string>
     <string name="swipe_to_learn_vowel">Swipe to Learn Vowel</string>
     <string name="play_consonant_letters">Play Consonant Letters</string>
     <string name="settings">Settings</string>
     <string name="myanmar_alphabet_phonics"><![CDATA[Myanmar Alphabet & Phonics]]></string>
+    <string name="awesome_you_traced_it_perfectly">Awesome! You traced it perfectly 🎉</string>
+    <string name="follow_along_to_trace_the_letter">Follow along to trace the letter %1$s!</string>
+
+    <string name="analyzing_your_strokes">Analyzing your strokes…</string>
+    <string name="retry">Retry</string>
+    <string name="tracing">Tracing: %1$s</string>
+    <string name="try_again">Try again!</string>
+    <string name="which_consonant_is_pronounced">Which consonant is pronounced %1$s?</string>
+    <string name="which_letter_starts_the_word_for">Which letter starts the word for \'%1$s\'?</string>
+    <string name="which_letter_starts_the_word">Which letter starts the word \'%1$s\'?</string>
+    <string name="what_sound_does_make">What sound does \'%1$s\' make?</string>
+    <string name="which_letter_makes_the_sound">Which letter makes the %1$s sound?</string>
+    <string name="score">Score: %1$d</string>
+    <string name="question">Question: %1$d/%2$d</string>
+    <string name="request_feedback_message">Could you please let us know what features you would like to see in the future?\nYour feedback will help us improve the app and make it more useful for you</string>
+    <string name="feedback_message">We’d love to hear from you!</string>
+    <string name="your_suggestion">Your suggestion</string>
+    <string name="submit">Submit</string>
 
 </resources>

@@ -23,3 +23,16 @@
 -keepclassmembers class com.tzh.mamp.data.model.** {
   *;
 }
+# Keep Firebase KTX classes
+-keep class com.google.firebase.** { *; }
+-keep class com.google.firebase.ktx.** { *; }
+
+# Google Mobile Ads
+-keep class com.google.android.gms.ads.** { *; }
+-keep public class com.google.android.gms.common.internal.safeparcel.SafeParcelable {
+    public static final *** NULL;
+}
+-keepnames @com.google.android.gms.common.annotation.KeepName class *
+-keepclassmembernames class * {
+    @com.google.android.gms.common.annotation.KeepName *;
+}

@@ -9,9 +9,15 @@ ksp = "2.0.0-1.0.21"
 hiltAndroid = "2.56.2"
 googleGmsGoogleServices = "4.4.3"
 firebaseDatabase = "22.0.0"
+playServicesAds = "23.2.0"
+adsMobileSdk = "0.20.0-beta01"
+playServicesAdsApi = "24.6.0"
+
 [libraries]
 firebase-database = { group = "com.google.firebase", name = "firebase-database", version.ref = "firebaseDatabase" }
-
+play-services-ads = { group = "com.google.android.gms", name = "play-services-ads", version.ref = "playServicesAds" }
+ads-mobile-sdk = { group = "com.google.android.libraries.ads.mobile.sdk", name = "ads-mobile-sdk", version.ref = "adsMobileSdk" }
+play-services-ads-api = { group = "com.google.android.gms", name = "play-services-ads-api", version.ref = "playServicesAdsApi" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -1,8 +1,8 @@
 package com.tzh.mamp.ui.screen.vowels
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -30,29 +30,22 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.tzh.mamp.BuildConfig
 import com.tzh.mamp.R
 import com.tzh.mamp.app.AlphabetType
 import com.tzh.mamp.app.SoundPlayer
 import com.tzh.mamp.data.model.VowelLetter
 import com.tzh.mamp.provider.NavigationProvider
+import com.tzh.mamp.ui.component.BannerAdView
 import com.tzh.mamp.ui.component.VowelCard
 
-
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun VowelLetterScreen(
     viewModel: VowelLetterViewModel = hiltViewModel(), navProvider: NavigationProvider
 ) {
     val vowels = viewModel.vowels
-    val context = LocalContext.current
-    val soundPlayer = remember {
-        SoundPlayer(context)
-    }
     var selectedVowel: VowelLetter? by remember { mutableStateOf(null) }
-    DisposableEffect(Unit) {
-        onDispose {
-            soundPlayer.release()
-        }
-    }
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -65,7 +58,6 @@ fun VowelLetterScreen(
                 .verticalScroll(rememberScrollState())
                 .padding(8.dp),
             horizontalArrangement = Arrangement.Center,
-            itemVerticalAlignment = Alignment.Top,
             maxItemsInEachRow = 2,
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
@@ -90,12 +82,17 @@ fun VowelLetterScreen(
         }
         Button(
             onClick = {
-                navProvider.openVideoPlyaer()
+                navProvider.openVideoPlayer()
             },
         ) {
             Icon(Icons.Default.PlayCircleOutline, contentDescription = "Play Consonant Letters")
             Spacer(Modifier.width(8.dp))
             Text(stringResource(R.string.play_consonant_letters))
         }
+        // Banner ad at bottom
+
+        BannerAdView(
+            adUnitId = BuildConfig.VOWEL_ADS_KEY
+        )
     }
 }

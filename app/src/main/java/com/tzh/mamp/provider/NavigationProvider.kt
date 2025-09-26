@@ -5,11 +5,10 @@ import com.tzh.mamp.app.AlphabetType
 interface NavigationProvider {
 
     fun openSetting()
-    fun openVideoPlyaer()
-
+    fun openVideoPlayer()
     fun openToAlphabet(index: Int, type: AlphabetType)
-    fun openToVowel(index: Int)
-
     fun onBack()
+
+    fun openTracing(consonant: String)
 
 }

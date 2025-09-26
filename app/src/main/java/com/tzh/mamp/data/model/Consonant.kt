@@ -17,4 +17,6 @@ data class Consonant(
     val example: String = "",
     @SerialName("description")
     val description: String = "",
+    @SerialName("file_path")
+    val filePath: String = "consonant/မြန်မာအက္ခရာAlphabet.mp3"
 )

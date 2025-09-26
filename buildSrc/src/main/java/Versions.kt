@@ -36,8 +36,10 @@ object Versions {
     const val security = "1.1.0-alpha06"
 
     // Firebase
-    const val firebaseBom = "33.15.0"
+    const val firebaseBom = "32.7.0"
+    const val playServicesAds = "23.2.0"
 
+   const val adsMobileSdk = "0.20.0-beta01"
     // Hilt
     const val hilt = "2.56.2"
     const val hiltWork = "1.2.0"

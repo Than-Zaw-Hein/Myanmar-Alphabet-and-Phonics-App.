@@ -1,6 +1,7 @@
 package com.tzh.mamp.data.model
 
 import androidx.annotation.Keep
+import com.google.firebase.encoders.annotations.Encodable
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -17,6 +18,7 @@ data class VowelLetter(
     val example: String,
     @SerialName("equivalent")
     val equivalent: String,
-    @SerialName("fileLink")
-    val fileLink: String
+    @get:Encodable.Ignore
+    @SerialName("filePath")
+    val filePath: String
 )

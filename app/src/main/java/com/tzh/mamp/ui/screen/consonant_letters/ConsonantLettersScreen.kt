@@ -3,6 +3,7 @@ package com.tzh.mamp.ui.screen.consonant_letters
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -29,12 +30,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.tzh.mamp.BuildConfig
 import com.tzh.mamp.R
 import com.tzh.mamp.app.AlphabetType
 import com.tzh.mamp.data.model.Consonant
 import com.tzh.mamp.provider.NavigationProvider
 import com.tzh.mamp.ui.component.AlphabetCard
+import com.tzh.mamp.ui.component.BannerAdView
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun ConsonantLettersScreen(
     viewModel: ConsonantLetterViewModel = hiltViewModel(), navProvider: NavigationProvider
@@ -64,7 +68,6 @@ fun ConsonantLettersScreen(
                     .padding(8.dp)
                     .verticalScroll(rememberScrollState()),
                 horizontalArrangement = Arrangement.Center,
-                itemVerticalAlignment = Alignment.Top,
                 maxItemsInEachRow = 5,
                 verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
@@ -100,13 +103,19 @@ fun ConsonantLettersScreen(
             }
             Button(
                 onClick = {
-                    navProvider.openVideoPlyaer()
+                    navProvider.openVideoPlayer()
                 },
             ) {
                 Icon(Icons.Default.PlayCircleOutline, contentDescription = "Play Consonant Letters")
                 Spacer(Modifier.width(8.dp))
                 Text(stringResource(R.string.play_consonant_letters))
             }
+
+            // Banner ad at bottom
+
+            BannerAdView(
+                adUnitId = BuildConfig.HOMESCREEN_ADS_KEY
+            )
         }
     }
 }

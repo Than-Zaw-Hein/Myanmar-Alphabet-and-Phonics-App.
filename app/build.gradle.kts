@@ -28,15 +28,32 @@ android {
             useSupportLibrary = true
         }
         signingConfig = signingConfigs.getByName("debug")
+//        manifestPlaceholders["com.google.android.gms.ads.APPLICATION_ID"] =
+//            "ca-app-pub-5023647269799812~1361514940"
 //        signingConfig = signingConfigs.getByName("release")
+
     }
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField("String", "HOMESCREEN_ADS_KEY", "\"ca-app-pub-5023647269799812/5911860399\"")
+            buildConfigField("String", "VOWEL_ADS_KEY", "\"ca-app-pub-5023647269799812/7689752590\"")
+            buildConfigField("String", "TRACING_ADS_KEY", "\"ca-app-pub-5023647269799812/4269382334\"")
+            buildConfigField("String", "DETAIL_ADS_KEY", "\"ca-app-pub-5023647269799812/8017055657\"")
+            buildConfigField("String", "QUIZ_SUCCESS_ADS_KEY", "\"ca-app-pub-5023647269799812/3332539331\"")
+        }
+        debug {
+            isMinifyEnabled = false
+            buildConfigField("String", "HOMESCREEN_ADS_KEY", "\"ca-app-pub-3940256099942544/6300978111\"") // test banner
+            buildConfigField("String", "VOWEL_ADS_KEY", "\"ca-app-pub-3940256099942544/6300978111\"")    // also test banner
+            buildConfigField("String", "TRACING_ADS_KEY", "\"ca-app-pub-3940256099942544/6300978111\"")    // also test banner
+            buildConfigField("String", "DETAIL_ADS_KEY", "\"ca-app-pub-3940256099942544/6300978111\"")    // also test banner
+            buildConfigField("String", "QUIZ_SUCCESS_ADS_KEY", "\"ca-app-pub-3940256099942544/1033173712\"")    // also test banner
         }
     }
     compileOptions {
@@ -70,13 +87,13 @@ tasks.configureEach {
     }
 }
 dependencies {
-//    implementation(libs.firebase.database)
+//    implementation(libs.play.services.ads.api)
+    //    implementation(libs.firebase.database)
     // --- Modules ---
     useModule(":libraries:framework")
     useModule(":libraries:jetframework")
     supportLib()
     compose()
-
     // --- Navigation ---
     navigation()
     //firebase

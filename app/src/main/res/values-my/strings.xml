@@ -6,11 +6,28 @@
 
     <string name="consonant_letters">အသံအမှတ်များ</string>
     <string name="vowel_letters">အသံသတ်များ</string>
-    <string name="tracing">ရေးသားခြင်း</string>
     <string name="quiz">မေးခွန်းများ</string>
+    <string name="feedback">တုံ့ပြန်ချက်</string>
     <string name="swipe_to_learn_consonant">အသံအမှတ်များကို သင်ယူရန် ဘေးသို့ပွတ်ဆွဲပါ</string>
     <string name="swipe_to_learn_vowel">အသံသတ်များကို သင်ယူရန် ဘေးသို့ပွတ်ဆွဲပါ</string>
     <string name="play_consonant_letters">အသံအမှတ်များကို ဖွင့်ရန်</string>
     <string name="settings">ဆက်တင်များ</string>
     <string name="myanmar_alphabet_phonics">မြန်မာအက္ခရာနှင့် အသံသွင်း</string>
+    <string name="awesome_you_traced_it_perfectly">အံ့ဩဖို့ကောင်းပါတယ်! သင်မှန်ကန်စွာရေးဆွဲနိုင်ခဲ့ပါပြီ 🎉</string>
+    <string name="follow_along_to_trace_the_letter">အက္ခရာ %1$s ကိုလိုက်၍ရေးဆွဲပါ!</string>
+    <string name="analyzing_your_strokes">သင့်ရေးသားမှုကို စိစစ်နေသည်…</string>
+    <string name="retry">ထပ်ကြိုးစားမည်</string>
+    <string name="tracing">ရေးဆွဲနေသည်: %1$s</string>
+    <string name="try_again">ထပ်လုပ်ကြည့်ပါ!</string>
+    <string name="which_consonant_is_pronounced">အဘယ်အသံကို ထုတ်သံပြုသော မြန်မာအက္ခရာမှာ %1$s ဖြစ်ပါသလဲ။</string>
+    <string name="which_letter_starts_the_word_for">"%1$s" ဆိုသောစကားလုံးကို စတင်ရေးသားသောအက္ခရာမှာ ဘယ်အက္ခရာလဲ။</string>
+    <string name="which_letter_starts_the_word">"%1$s" စကားလုံးကို စတင်သောအက္ခရာမှာ ဘယ်အက္ခရာလဲ။</string>
+    <string name="what_sound_does_make">"%1$s" သည် ဘယ်အသံကို ထုတ်သံပြုသလဲ။</string>
+    <string name="which_letter_makes_the_sound">"%1$s" အသံကို ထုတ်သံပြုသောအက္ခရာမှာ ဘယ်အက္ခရာလဲ။</string>
+    <string name="score">အမှတ်: %1$d</string>
+    <string name="question">မေးခွန်း: %1$d/%2$d</string>
+    <string name="request_feedback_message">အနာဂတ်တွင် ထည့်သွင်းလိုသောအင်္ဂါရပ်များကို ကျွန်ုပ်တို့အား ပြောပြပေးနိုင်မည်လား။\nသင်၏တုံ့ပြန်ချက်သည် အက်ပ်ကို ပိုမိုအသုံးဝင်အောင် တိုးတက်လာစေမည်ဖြစ်ပါသည်။</string>
+    <string name="feedback_message">သင်၏အကြံပြုချက်များကို ကြားလိုပါတယ်။</string>
+    <string name="your_suggestion">သင်၏အကြံပြုချက်</string>
+    <string name="submit">တင်သွင်းရန်</string>
 </resources>

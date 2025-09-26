@@ -18,14 +18,17 @@ class SoundPlayer(private val context: Context) {
     var isPlaying by mutableStateOf(false)
 
 
-    fun playSound(@RawRes soundResId: Int) {
+    fun playSound(@RawRes soundResId: Int,isLoop: Boolean = false) {
         mediaPlayer?.release()
-        mediaPlayer = MediaPlayer.create(context, soundResId)
+        mediaPlayer = MediaPlayer.create(context, soundResId).apply {
+            isLooping = isLoop
+        }
         mediaPlayer?.start()
     }
 
     fun playFromInputStream(
         inputStream: InputStream,
+        isLoop: Boolean = false
     ) {
         mediaPlayer?.release()
         isPlaying = true
@@ -43,6 +46,7 @@ class SoundPlayer(private val context: Context) {
             mediaPlayer = MediaPlayer().apply {
                 setDataSource(tempFile.absolutePath)
                 setAudioStreamType(AudioManager.STREAM_MUSIC)
+                isLooping = isLoop
                 prepare()
                 start()
             }

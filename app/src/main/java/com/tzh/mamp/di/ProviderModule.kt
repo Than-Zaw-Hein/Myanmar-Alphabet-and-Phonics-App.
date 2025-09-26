@@ -21,8 +21,8 @@ object ProviderModule {
 
     @Provides
     @Singleton
-    fun provideAppLanguageProvider(cacheManager: CacheManager): LanguageProvider {
-        return AppLanguageProvider(cacheManager)
+    fun provideAppLanguageProvider(@ApplicationContext context: Context): LanguageProvider {
+        return AppLanguageProvider(context)
     }
 
     @Provides

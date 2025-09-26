@@ -23,6 +23,7 @@ import androidx.compose.material.icons.automirrored.filled.ArrowForwardIos
 import androidx.compose.material.icons.filled.ArrowBackIosNew
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -30,6 +31,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
 import com.tzh.mamp.ui.component.flip.FlipPager
@@ -49,7 +51,7 @@ inline fun <reified T : Any> LetterContentList(
     val listState = rememberLazyListState()
     val scope = rememberCoroutineScope()
 
-    if (!isEmulator) {
+    if (isEmulator) {
         HorizontalPager(state = pagerState) { page ->
             val pageOffset =
                 ((pagerState.currentPage - page) + pagerState.currentPageOffsetFraction)
@@ -62,7 +64,7 @@ inline fun <reified T : Any> LetterContentList(
             LaunchedEffect(page) {
                 listState.animateScrollToItem(
                     pagerState.currentPage,
-                    scrollOffset = pagerState.currentPage -1
+                    scrollOffset = pagerState.currentPage - 1
                 )
             }
             content(list[page], page)
@@ -76,10 +78,9 @@ inline fun <reified T : Any> LetterContentList(
             LaunchedEffect(page) {
                 listState.animateScrollToItem(
                     pagerState.currentPage,
-                    scrollOffset = pagerState.currentPage -1
+                    scrollOffset = pagerState.currentPage - 1
                 )
             }
-            val alphabet = list[page]
             content(list[page], page)
 
         }
@@ -103,7 +104,10 @@ inline fun <reified T : Any> LetterContentList(
 
                 }
             },
-            modifier = Modifier
+            modifier = Modifier,
+            colors = IconButtonDefaults.iconButtonColors(
+                contentColor = Color.White
+            )
         ) {
             Icon(
                 imageVector = Icons.Default.ArrowBackIosNew,
@@ -128,7 +132,7 @@ inline fun <reified T : Any> LetterContentList(
                         .clip(CircleShape)
                         .background(
                             if (isSelected) MaterialTheme.colorScheme.primary
-                            else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3f)
+                            else Color.White
                         )
                         .clickable(
                             onClick = {
@@ -147,7 +151,10 @@ inline fun <reified T : Any> LetterContentList(
                     )
                 }
             },
-            modifier = Modifier
+            modifier = Modifier,
+            colors = IconButtonDefaults.iconButtonColors(
+                contentColor = Color.White
+            )
         ) {
             Icon(
                 imageVector = Icons.AutoMirrored.Filled.ArrowForwardIos,

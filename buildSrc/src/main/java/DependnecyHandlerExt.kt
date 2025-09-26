@@ -20,6 +20,7 @@ fun DependencyHandler.useModule(moduleName: String) = moduleImplementation(modul
 // AndroidX / Core
 // -------------------------------
 fun DependencyHandler.supportLib() {
+
     implementation(Libs.AndroidX.coreKtx)
     implementation(Libs.AndroidX.kotlinLib)
     implementation(Libs.AndroidX.appCompat)
@@ -28,6 +29,7 @@ fun DependencyHandler.supportLib() {
     implementation(Libs.Coroutines.core)
     implementation(Libs.Coroutines.android)
     implementation(Libs.Compose.timber)
+
 }
 
 // -------------------------------
@@ -53,6 +55,7 @@ fun DependencyHandler.compose() {
     implementation(Libs.Compose.paging)
     implementation(Libs.Compose.adaptive)
     implementation(Libs.Compose.coil)
+    implementation(Libs.Compose.coil_gif)
     implementation(Libs.Compose.googleFonts)
 
     androidTestImplementation(Libs.Testing.composeJunit)
@@ -129,17 +132,16 @@ fun DependencyHandler.storage() {
 // -------------------------------
 fun DependencyHandler.firebase() {
     addPlatform(Libs.Firebase.bom)
-    implementation(Libs.Firebase.base)
-    implementation(Libs.Firebase.firestore)
     implementation(Libs.Firebase.analytics)
     implementation(Libs.Firebase.crashlytics)
-    implementation(Libs.Firebase.push)
-    implementation(Libs.Firebase.config)
-    implementation(Libs.Firebase.core)
     implementation(Libs.Firebase.messaging)
+    implementation(Libs.Firebase.firestore)
+    implementation(Libs.Firebase.config)
     implementation(Libs.Firebase.database)
-}
+    implementation(Libs.Firebase.playServicesAds)
+//    implementation(Libs.Firebase.adsMobileSdk)
 
+}
 // -------------------------------
 // Hilt
 // -------------------------------
