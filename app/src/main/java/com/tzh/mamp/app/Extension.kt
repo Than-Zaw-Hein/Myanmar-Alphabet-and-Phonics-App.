@@ -1,7 +1,10 @@
 package com.tzh.mamp.app
 
 import android.app.Activity
+import android.content.res.Configuration
 import android.graphics.Bitmap
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.core.graphics.createBitmap
 import androidx.core.graphics.scale
 import com.tzh.mamp.data.model.QuizQuestionType
@@ -21,6 +24,12 @@ fun SoundPlayer.playFromOption(option: String, type: QuizQuestionType) {
     if (type == QuizQuestionType.PhoneticToLetter){
 
     }
+}
+
+@Composable
+fun isLandscape(): Boolean {
+    val configuration = LocalConfiguration.current
+    return configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
 }
 
 

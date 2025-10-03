@@ -33,5 +33,9 @@
     <string name="feedback_message">We’d love to hear from you!</string>
     <string name="your_suggestion">Your suggestion</string>
     <string name="submit">Submit</string>
+    <string name="feedback_thanks">Thanks for your feedback.</string>
+    <string name="feedback_error">Failed to send feedback. Please try again.</string>
+    <string name="mini_game">Mini Game</string>
+    <string name="quiz_daily">Quiz Daily</string>
 
 </resources>

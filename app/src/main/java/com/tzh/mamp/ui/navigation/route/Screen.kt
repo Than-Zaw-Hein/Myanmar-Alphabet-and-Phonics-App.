@@ -22,9 +22,19 @@ sealed class Screen(val route: String, @StringRes val title: Int, val icon: Imag
 
     object Tracing : Screen("tracing", R.string.tracing, Icons.Default.Create)
     object Quiz : Screen("quiz", R.string.quiz, Icons.Default.QuestionAnswer)
+    object MiniGame : Screen(
+        "miniGame",
+        R.string.mini_game, Icons.Default.QuestionAnswer
+    )
+
+    object QuizDaily : Screen(
+        "quizDaily",
+        R.string.quiz_daily, Icons.Default.QuestionAnswer
+    )
+
     object FeedBack : Screen("feedback", R.string.feedback, Icons.Default.Feedback)
 
     companion object {
-        val drawer = listOf(ConsonantLetters, VowelLetters, Quiz,FeedBack)
+        val drawer = listOf(ConsonantLetters, VowelLetters, Quiz, FeedBack)
     }
 }

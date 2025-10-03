@@ -10,12 +10,13 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -63,26 +64,31 @@ import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.tzh.mamp.BuildConfig
 import com.tzh.mamp.R
 import com.tzh.mamp.app.SoundPlayer
+import com.tzh.mamp.app.isLandscape
+import com.tzh.mamp.app.util.QuizMode
 import com.tzh.mamp.data.model.Option
 import com.tzh.mamp.data.model.QuizQuestionType
 
 @Composable
 fun ConsonantQuizScreen(
     viewModel: ConsonantQuizViewModel = hiltViewModel(),
+    mode: QuizMode = QuizMode.Standard
 ) {
+    val state by viewModel.uiState.collectAsState()
     val context = LocalContext.current
     val soundPlayer: SoundPlayer = remember { SoundPlayer(context) }
     val phoneticPlayer: SoundPlayer = remember { SoundPlayer(context) }
-    val state by viewModel.uiState.collectAsState()
 
-    // Play sound when question changes
+    // Load questions on screen start
+    LaunchedEffect(mode) { viewModel.loadQuestions(mode) }
+
+    // Play question sound
     LaunchedEffect(state.question?.id) {
         state.question?.let { question ->
             soundPlayer.release()
-            // Try to find consonant file path from repository if needed
             val consonant = viewModel.getConsonantForQuestion(question)
             consonant?.filePath?.let { path ->
-                if (state.question?.type == QuizQuestionType.PhoneticToLetter) {
+                if (question.type == QuizQuestionType.PhoneticToLetter) {
                     val inputStream = context.assets.open(path)
                     soundPlayer.playFromInputStream(inputStream, true)
                 }
@@ -91,23 +97,25 @@ fun ConsonantQuizScreen(
     }
 
     if (state.isQuizFinished) {
-        LaunchedEffect(Unit) {
-            soundPlayer.release()
-        }
+        LaunchedEffect(Unit) { soundPlayer.release() }
         QuizCompletionScreen(
-            score = state.score, onPlayAgain = { viewModel.restartQuiz() })
+            score = state.score,
+            onPlayAgain = { viewModel.loadQuestions(mode) }
+        )
     } else {
         state.question?.let { question ->
             QuizContent(
                 state = state,
-                totalQuestions = viewModel.getTotalQuestionCount(),
+                totalQuestions = state.progress.questions.size,
                 onOptionSelected = {
                     viewModel.setEvent(
-                        ConsonantQuizContract.Event.OnOptionSelected(it)
+                        ConsonantQuizContract.Event.OnOptionSelected(
+                            it
+                        )
                     )
                 },
-                onPlaySound = {
-                    val consonant = viewModel.getConsonantById(it)
+                onPlaySound = { consonantId ->
+                    val consonant = viewModel.getConsonantById(consonantId)
                     consonant?.filePath?.let { path ->
                         val inputStream = context.assets.open(path)
                         phoneticPlayer.playFromInputStream(inputStream)
@@ -117,6 +125,7 @@ fun ConsonantQuizScreen(
         }
     }
 }
+
 
 @Composable
 fun QuizContent(
@@ -129,30 +138,70 @@ fun QuizContent(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
-            .verticalScroll(rememberScrollState()),
+            .then(if (isLandscape()) Modifier else Modifier.verticalScroll(rememberScrollState())),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        QuizHeader(
-            currentQuestion = state.question?.id ?: 0,
-            totalQuestions = totalQuestions,
-            score = state.score
-        )
 
-        Spacer(Modifier.height(24.dp))
+        if (isLandscape()) {
+            Row(
+                modifier = Modifier.weight(1f)
+            ) {
+                Column(modifier = Modifier.weight(1f)) {
+                    QuizHeader(
+                        currentQuestion = state.question?.id ?: 0,
+                        totalQuestions = totalQuestions,
+                        score = state.score
+                    )
+                    Spacer(Modifier.height(8.dp))
+                    QuestionDisplay(
+                        text = state.question!!.questionText,
+                        state.question.type,
+                        Modifier
+                            .weight(1f)
+                            .fillMaxHeight()
+                    )
+                }
+                Spacer(Modifier.width(8.dp))
+                OptionsGrid(
+                    options = state.question!!.options,
+                    selectedAnswer = state.selectedAnswer,
+                    correctAnswerId = state.question.correctAnswerId,
+                    isAnswered = state.isAnswerCorrect != null,
+                    onOptionSelected = onOptionSelected,
+                    questionType = state.question.type,
+                    onPlaySound = onPlaySound,
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxHeight()
+                )
+            }
 
-        QuestionDisplay(text = state.question!!.questionText, state.question.type)
+        } else {
+            QuizHeader(
+                currentQuestion = state.question?.id ?: 0,
+                totalQuestions = totalQuestions,
+                score = state.score
+            )
 
-        Spacer(Modifier.height(16.dp))
+            Spacer(Modifier.height(8.dp))
+            QuestionDisplay(
+                text = state.question!!.questionText,
+                state.question.type,
+                Modifier.fillMaxSize()
+            )
 
-        OptionsGrid(
-            options = state.question.options,
-            selectedAnswer = state.selectedAnswer,
-            correctAnswerId = state.question.correctAnswerId,
-            isAnswered = state.isAnswerCorrect != null,
-            onOptionSelected = onOptionSelected,
-            questionType = state.question.type,
-            onPlaySound = onPlaySound
-        )
+            Spacer(Modifier.height(16.dp))
+
+            OptionsGrid(
+                options = state.question.options,
+                selectedAnswer = state.selectedAnswer,
+                correctAnswerId = state.question.correctAnswerId,
+                isAnswered = state.isAnswerCorrect != null,
+                onOptionSelected = onOptionSelected,
+                questionType = state.question.type,
+                onPlaySound = onPlaySound
+            )
+        }
     }
 }
 
@@ -191,7 +240,7 @@ fun QuizHeader(currentQuestion: Int, totalQuestions: Int, score: Int) {
 
 // Displays the question in a fun card
 @Composable
-fun QuestionDisplay(text: String, type: QuizQuestionType) {
+fun QuestionDisplay(text: String, type: QuizQuestionType, modifier: Modifier = Modifier) {
     val questionStringId = remember {
         when (type) {
             QuizQuestionType.ConceptToLetter -> R.string.which_letter_starts_the_word_for
@@ -205,7 +254,7 @@ fun QuestionDisplay(text: String, type: QuizQuestionType) {
     }
 
     Card(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier,
         shape = RoundedCornerShape(20.dp),
         elevation = CardDefaults.cardElevation(6.dp),
         colors = CardDefaults.cardColors(
@@ -233,19 +282,31 @@ fun OptionsGrid(
     isAnswered: Boolean,
     onOptionSelected: (Option) -> Unit,
     onPlaySound: (consonantId: Int) -> Unit,
-    questionType: QuizQuestionType
+    questionType: QuizQuestionType,
+    modifier: Modifier = Modifier
 ) {
-    Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+
+    Column(
+        verticalArrangement = Arrangement.Center,
+        modifier = modifier
+    ) {
+
         options.chunked(2).forEach { rowOptions ->
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(16.dp)
+                horizontalArrangement = Arrangement.Center
             ) {
                 rowOptions.forEach { option ->
                     OptionBlob(
                         questionType = questionType,
                         text = option.label,
-                        modifier = Modifier.weight(1f),
+                        modifier = Modifier
+                            .then(
+                                if (isLandscape()) Modifier
+                                    .height(120.dp)
+                                    .weight(1f) else Modifier.size(150.dp)
+                            )
+                            .padding(8.dp),
                         isSelected = selectedAnswer == option,
                         isAnswered = isAnswered,
                         isCorrect = option.id == correctAnswerId,
@@ -287,7 +348,6 @@ fun OptionBlob(
 
     Card(
         modifier = modifier
-            .aspectRatio(1f)
             .scale(scale),
         enabled = !isAnswered,
         onClick = onClick,
@@ -313,7 +373,11 @@ fun OptionBlob(
                         .align(Alignment.BottomEnd)
                         .padding(4.dp)
                 ) {
-                    Icon(imageVector = Icons.Default.PlayCircle, contentDescription = "Play $text")
+                    Icon(
+                        imageVector = Icons.Default.PlayCircle,
+                        contentDescription = "Play $text",
+                        tint = Color.White
+                    )
                 }
             }
         }

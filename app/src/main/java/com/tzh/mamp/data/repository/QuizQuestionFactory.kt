@@ -4,30 +4,54 @@ import com.tzh.mamp.data.model.Consonant
 import com.tzh.mamp.data.model.Option
 import com.tzh.mamp.data.model.QuizQuestion
 import com.tzh.mamp.data.model.QuizQuestionType
-
 object QuizQuestionFactory {
 
     fun generate(consonants: List<Consonant>): List<QuizQuestion> {
-        val commonConsonants = consonants
-//            .filterNot {
-//            it.example.contains("rare", ignoreCase = true)
-//        }
+        return generateQuestions(consonants).shuffled().mapIndexed { index, q -> q.copy(id = index + 1) }
+    }
 
-        val allQuestions = commonConsonants.map { consonant ->
-            val generators = listOf(
-                { createPhoneticToLetter(consonant, commonConsonants) },
-                { createLetterToPhonetic(consonant, commonConsonants) },
-                { createWordToLetter(consonant, commonConsonants) }
-            ).toMutableList()
+    fun generateDaily(consonants: List<Consonant>): List<QuizQuestion> {
+        if (consonants.isEmpty()) return emptyList()
+
+        // Deterministic daily selection
+        val todaySeed = java.time.LocalDate.now().toEpochDay().toInt()
+        val random = kotlin.random.Random(todaySeed)
+
+        val count = (3..5).random(random)
+        val selected = consonants.shuffled(random).take(count)
+
+        return generateQuestions(selected, random).shuffled(random).mapIndexed { index, q ->
+            q.copy(id = index + 1)
+        }
+    }
+
+    fun generateMiniGame(consonants: List<Consonant>): List<QuizQuestion> {
+        // Example mini-game logic: pick 10 fastest questions
+        val random = kotlin.random.Random(System.currentTimeMillis())
+        val selected = consonants.shuffled(random).take(10)
+        return generateQuestions(selected, random).shuffled(random).mapIndexed { index, q ->
+            q.copy(id = index + 1)
+        }
+    }
+
+    // Internal helper
+    private fun generateQuestions(
+        consonants: List<Consonant>,
+        random: kotlin.random.Random = kotlin.random.Random.Default
+    ): List<QuizQuestion> {
+        return consonants.map { consonant ->
+            val generators = mutableListOf(
+                { createPhoneticToLetter(consonant, consonants) },
+                { createLetterToPhonetic(consonant, consonants) },
+                { createWordToLetter(consonant, consonants) }
+            )
 
             if (consonant.example.contains("(")) {
-                generators.add { createConceptToLetter(consonant, commonConsonants) }
+                generators.add { createConceptToLetter(consonant, consonants) }
             }
 
-            generators.random().invoke()
+            generators.random(random).invoke()
         }
-
-        return allQuestions.shuffled().mapIndexed { index, q -> q.copy(id = index + 1) }
     }
 
     private fun wrongOptions(
@@ -38,46 +62,34 @@ object QuizQuestionFactory {
 
     private fun createPhoneticToLetter(answer: Consonant, all: List<Consonant>) = QuizQuestion(
         id = 0,
-        questionText = answer.phonetic,// context.getString(R.string.which_letter_makes_the_sound, answer.phonetic),
-        options = (wrongOptions(all, answer) {
-            Option(it.id, it.letter)
-        } + Option(answer.id, answer.letter)).shuffled(),
+        questionText = answer.phonetic,
+        options = (wrongOptions(all, answer) { Option(it.id, it.letter) } + Option(answer.id, answer.letter)).shuffled(),
         correctAnswerId = answer.id,
         type = QuizQuestionType.PhoneticToLetter
     )
 
     private fun createLetterToPhonetic(answer: Consonant, all: List<Consonant>) = QuizQuestion(
         id = 0,
-        questionText = answer.letter,// context.getString(R.string.what_sound_does_make, answer.letter),
-        options = (wrongOptions(all, answer) { Option(it.id, it.phonetic) } + Option(
-            answer.id,
-            answer.phonetic
-        )).shuffled(),
+        questionText = answer.letter,
+        options = (wrongOptions(all, answer) { Option(it.id, it.phonetic) } + Option(answer.id, answer.phonetic)).shuffled(),
         correctAnswerId = answer.id,
         type = QuizQuestionType.LetterToPhonetic
     )
 
     private fun createWordToLetter(answer: Consonant, all: List<Consonant>) = QuizQuestion(
         id = 0,
-        questionText = answer.example,// context.getString(R.string.which_letter_starts_the_word, ),
-        options =(wrongOptions(all, answer) {
-            Option(it.id, it.letter)
-        } + Option(answer.id, answer.letter)).shuffled(),
+        questionText = answer.example,
+        options = (wrongOptions(all, answer) { Option(it.id, it.letter) } + Option(answer.id, answer.letter)).shuffled(),
         correctAnswerId = answer.id,
         type = QuizQuestionType.WordToLetter
     )
 
-    private fun createConceptToLetter(answer: Consonant, all: List<Consonant>): QuizQuestion {
-        val concept = answer.example
-
-        return QuizQuestion(
-            id = 0,
-            questionText = concept,//context.getString(R.string.which_letter_starts_the_word_for, ),
-            options = (wrongOptions(all, answer) {
-                Option(it.id, it.letter)
-            } + Option(answer.id, answer.letter)).shuffled(),
-            correctAnswerId = answer.id,
-            type = QuizQuestionType.ConceptToLetter
-        )
-    }
+    private fun createConceptToLetter(answer: Consonant, all: List<Consonant>) = QuizQuestion(
+        id = 0,
+        questionText = answer.example,
+        options = (wrongOptions(all, answer) { Option(it.id, it.letter) } + Option(answer.id, answer.letter)).shuffled(),
+        correctAnswerId = answer.id,
+        type = QuizQuestionType.ConceptToLetter
+    )
 }
+

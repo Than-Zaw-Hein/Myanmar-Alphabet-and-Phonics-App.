@@ -30,4 +30,6 @@
     <string name="feedback_message">သင်၏အကြံပြုချက်များကို ကြားလိုပါတယ်။</string>
     <string name="your_suggestion">သင်၏အကြံပြုချက်</string>
     <string name="submit">တင်သွင်းရန်</string>
+    <string name="feedback_thanks">သင်၏တုံ့ပြန်ချက်အတွက် ကျေးဇူးတင်ပါသည်။</string>
+    <string name="feedback_error">တုံ့ပြန်ချက်ပေးပို့မှု မအောင်မြင်ပါ။ ထပ်မံကြိုးစားပါ။</string>
 </resources>

@@ -23,7 +23,6 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationDrawerItem
 import androidx.compose.material3.NavigationDrawerItemDefaults
 import androidx.compose.material3.Text
@@ -77,17 +76,17 @@ fun CustomDrawer(
     )
     val animateAlpha by animateFloatAsState(
         targetValue = if (isOpenDrawer) 1f else 0f,
-        )
+    )
 
     BoxWithBackground(
         modifier = Modifier
-            .statusBarsPadding()
             .fillMaxHeight()
             .fillMaxWidth(fraction = 0.6f)
     ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .statusBarsPadding()
                 .alpha(animateAlpha)
                 .padding(horizontal = 12.dp)
                 .verticalScroll(rememberScrollState()),
@@ -106,7 +105,6 @@ fun CustomDrawer(
                     )
                 }
             }
-            Spacer(modifier = Modifier.height(16.dp))
             Image(
                 painter = painterResource(R.mipmap.ic_launcher_foreground),
                 contentDescription = "Logo",
@@ -127,11 +125,6 @@ fun CustomDrawer(
                             )
                         }
                     }
-            )
-            Text(
-                "Myanmar Alphabet And Phonics",
-                style = MaterialTheme.typography.titleLarge,
-                modifier = Modifier.padding(16.dp)
             )
             HorizontalDivider()
             Spacer(modifier = Modifier.height(8.dp))
@@ -154,7 +147,6 @@ fun CustomDrawer(
                     modifier = Modifier.padding(NavigationDrawerItemDefaults.ItemPadding)
                 )
             }
-
         }
     }
 }

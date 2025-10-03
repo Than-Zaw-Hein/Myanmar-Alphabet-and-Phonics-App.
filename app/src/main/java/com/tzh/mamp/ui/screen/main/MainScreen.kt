@@ -41,6 +41,7 @@ import androidx.compose.ui.unit.dp
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.tzh.mamp.R
+import com.tzh.mamp.app.util.QuizMode
 import com.tzh.mamp.provider.NavigationProvider
 import com.tzh.mamp.ui.component.BoxWithBackground
 import com.tzh.mamp.ui.component.CustomDrawer
@@ -172,11 +173,25 @@ fun MainScreen(
                         }
 
                         Screen.Quiz.route -> {
-                            ConsonantQuizScreen()
+                            ConsonantQuizScreen(
+                                mode = QuizMode.Standard
+                            )
+                        }
+
+                        Screen.MiniGame.route -> {
+                            ConsonantQuizScreen(
+                                mode = QuizMode.MiniGame
+                            )
+                        }
+
+                        Screen.QuizDaily.route -> {
+                            ConsonantQuizScreen(
+                                mode = QuizMode.Daily
+                            )
                         }
 
                         Screen.FeedBack.route -> {
-                            FeedbackScreen() {}
+                            FeedbackScreen()
                         }
                     }
                 }
