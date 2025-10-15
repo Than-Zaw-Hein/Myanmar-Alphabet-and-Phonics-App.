@@ -35,6 +35,6 @@ sealed class Screen(val route: String, @StringRes val title: Int, val icon: Imag
     object FeedBack : Screen("feedback", R.string.feedback, Icons.Default.Feedback)
 
     companion object {
-        val drawer = listOf(ConsonantLetters, VowelLetters, Quiz, FeedBack)
+        val drawer = listOf(ConsonantLetters, VowelLetters, Quiz,MiniGame, QuizDaily, FeedBack)
     }
 }

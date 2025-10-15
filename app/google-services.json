@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "488642968540",
+    "firebase_url": "https://myanmar-alphabet-and-phonics-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "myanmar-alphabet-and-phonics",
+    "storage_bucket": "myanmar-alphabet-and-phonics.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:488642968540:android:a0ff0416dc0278e68b6d19",
+        "android_client_info": {
+          "package_name": "com.tzh.mamp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMZZ84rELcvbng8Z0-5P48EwKFjZ4W0HQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
