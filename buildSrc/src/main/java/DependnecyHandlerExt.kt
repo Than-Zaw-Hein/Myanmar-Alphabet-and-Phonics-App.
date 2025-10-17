@@ -97,23 +97,23 @@ fun DependencyHandler.network() {
     implementation(Libs.Network.retrofitMoshi)
     implementation(Libs.Network.okhttp)
     implementation(Libs.Network.loggingInterceptor)
-    implementation(Libs.Network.moshi)
-    ksp(Libs.Network.moshiCodegen)
-    implementation(Libs.Network.moshiLazyAdapter)
-    implementation(Libs.Network.kotlinxSerialization)
-    implementation(Libs.Network.kotlinxSerializationRetrofit)
+//    implementation(Libs.Network.moshi)
+//    ksp(Libs.Network.moshiCodegen)
+//    implementation(Libs.Network.moshiLazyAdapter)
+//    implementation(Libs.Network.kotlinxSerialization)
+//    implementation(Libs.Network.kotlinxSerializationRetrofit)
 
     implementation(Libs.Network.gson)
     implementation(Libs.Network.gsonConverter)
 
     // Ktor
-    implementation(Libs.Network.ktorCore)
-    implementation(Libs.Network.ktorAndroid)
-    implementation(Libs.Network.ktorSerialization)
-    implementation(Libs.Network.ktorLogging)
-    implementation(Libs.Network.ktorNegotiation)
-    implementation(Libs.Network.ktorCio)
-    implementation(Libs.Network.webScoket)
+//    implementation(Libs.Network.ktorCore)
+//    implementation(Libs.Network.ktorAndroid)
+//    implementation(Libs.Network.ktorSerialization)
+//    implementation(Libs.Network.ktorLogging)
+//    implementation(Libs.Network.ktorNegotiation)
+//    implementation(Libs.Network.ktorCio)
+//    implementation(Libs.Network.webScoket)
 }
 
 // -------------------------------

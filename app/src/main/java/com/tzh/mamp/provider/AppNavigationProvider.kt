@@ -7,6 +7,7 @@ import com.tzh.mamp.ui.screen.destinations.AlphabetScreenDestination
 import com.tzh.mamp.ui.screen.destinations.ConsonantTracingScreenDestination
 import com.tzh.mamp.ui.screen.destinations.SettingsScreenDestination
 import com.tzh.mamp.ui.screen.destinations.VideoPlayerDestination
+import com.tzh.mamp.ui.screen.destinations.VideoPlayerScreenDestination
 
 class AppNavigationProvider(
     private val navController: NavController,
@@ -48,6 +49,14 @@ class AppNavigationProvider(
                 ConsonantTracingScreenDestination(
                     consonant = consonant
                 ), navOptionsBuilder = {}
+            )
+        }
+    }
+
+    override fun openYoutubePlayer(videoId: String,title:String) {
+        multipleEventsCutter.processEvent {
+            navController.navigate(
+                VideoPlayerScreenDestination(videoId,title), navOptionsBuilder = {}
             )
         }
     }

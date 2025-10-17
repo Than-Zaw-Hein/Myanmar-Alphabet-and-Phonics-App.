@@ -6,6 +6,7 @@ import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.Feedback
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.QuestionAnswer
+import androidx.compose.material.icons.filled.VideoLibrary
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.tzh.mamp.R
 
@@ -33,8 +34,9 @@ sealed class Screen(val route: String, @StringRes val title: Int, val icon: Imag
     )
 
     object FeedBack : Screen("feedback", R.string.feedback, Icons.Default.Feedback)
+    object Videos : Screen("videos", R.string.kid_videos, Icons.Default.VideoLibrary)
 
     companion object {
-        val drawer = listOf(ConsonantLetters, VowelLetters, Quiz,MiniGame, QuizDaily, FeedBack)
+        val drawer = listOf(ConsonantLetters, VowelLetters, Quiz,MiniGame, QuizDaily, FeedBack,Videos)
     }
 }

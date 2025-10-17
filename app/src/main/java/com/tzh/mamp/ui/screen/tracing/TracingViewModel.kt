@@ -37,18 +37,27 @@ class TracingViewModel @Inject constructor(
                 _uiState.value = _uiState.value.copy(showIntro = false)
             }
 
-            is TracingUiEvent.Reset -> {
+            is TracingUiEvent.Reset -> { checkingJob?.cancel()
                 _uiState.value = TracingUiState()
             }
 
             is TracingUiEvent.CheckLatestDrawing -> {
-                viewModelScope.launch {
-                    checkingJob?.cancelAndJoin()
-                    checkingJob = launch(Dispatchers.IO) {
+                checkingJob?.cancel()
+                checkingJob = viewModelScope.launch {
+
+                    launch(Dispatchers.IO) {
                         Timber.tag("START JOB").e("TRUE")
                         _uiState.value = _uiState.value.copy(isChecking = true)
                         delay(1500)
-                        val userBitmap = event.getUserBitmap() ?: return@launch
+
+                        // Execute the lambda to get the bitmap within the coroutine
+                        val userBitmap = event.getUserBitmap()
+
+                        // Ensure the bitmap is not null before proceeding
+                        if (userBitmap == null) {
+                            _uiState.value = _uiState.value.copy(isChecking = false)
+                            return@launch
+                        }
                         val correct =
                             isTracingCorrect(userBitmap, event.consonantBitmap, tolerance = 0.65f)
                         _uiState.value = _uiState.value.copy(

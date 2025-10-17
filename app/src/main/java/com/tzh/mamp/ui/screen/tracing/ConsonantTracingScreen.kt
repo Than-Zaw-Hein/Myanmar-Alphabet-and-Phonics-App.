@@ -129,10 +129,10 @@ fun ConsonantTracingScreen(
     }
     // Check the latest drawing whenever undoCount changes
     LaunchedEffect(latestCount, isDrawing) {
-        snapshotFlow { latestCount }.debounce {
-            3000L
-        }.filter { it > 0 }.collectLatest {
-            if (!isDrawing) {
+        snapshotFlow { isDrawing }
+            .filter { !it && latestCount > 0 } // Only when drawing stops AND there is something to check
+            .debounce(500L) // Wait a moment before firing the check
+            .collectLatest {
                 viewModel.onEvent(
                     TracingUiEvent.CheckLatestDrawing(
                         getUserBitmap = { controller.getDrawBoxBitmap() },
@@ -140,7 +140,6 @@ fun ConsonantTracingScreen(
                     )
                 )
             }
-        }
     }
 
     BoxWithBackground(

@@ -37,5 +37,6 @@
     <string name="feedback_error">Failed to send feedback. Please try again.</string>
     <string name="mini_game">Mini Game</string>
     <string name="quiz_daily">Quiz Daily</string>
+    <string name="kid_videos">Kid Videos</string>
 
 </resources>

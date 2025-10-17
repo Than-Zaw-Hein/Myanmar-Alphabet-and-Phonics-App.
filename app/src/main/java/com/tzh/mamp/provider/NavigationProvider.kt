@@ -11,4 +11,6 @@ interface NavigationProvider {
 
     fun openTracing(consonant: String)
 
+    fun openYoutubePlayer(videoId: String,title:String)
+
 }

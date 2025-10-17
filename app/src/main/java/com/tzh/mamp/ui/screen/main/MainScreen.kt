@@ -51,6 +51,7 @@ import com.tzh.mamp.ui.navigation.route.Screen
 import com.tzh.mamp.ui.screen.consonant_letters.ConsonantLettersScreen
 import com.tzh.mamp.ui.screen.feedback.FeedbackScreen
 import com.tzh.mamp.ui.screen.quiz.ConsonantQuizScreen
+import com.tzh.mamp.ui.screen.video.VideoScreen
 import com.tzh.mamp.ui.screen.vowels.VowelLetterScreen
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
@@ -192,6 +193,9 @@ fun MainScreen(
 
                         Screen.FeedBack.route -> {
                             FeedbackScreen()
+                        }
+                        Screen.Videos.route -> {
+                            VideoScreen(navProvider)
                         }
                     }
                 }
